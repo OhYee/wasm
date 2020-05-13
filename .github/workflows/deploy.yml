@@ -1,0 +1,29 @@
+name: deploy
+on:
+  push:
+    branchs:
+    - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-go@v1
+      with:
+        go-version: 1.13
+    - run: go generate ./example/
+    - name: Deploy
+      uses: s0/git-publish-subdir-action@master
+      env:
+        REPO: self
+        BRANCH: gh-pages
+        FOLDER: example
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Sync to Gitee
+      uses: wearerequired/git-mirror-action@master
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.GITEE_PRIVATE_KEY }}
+      with:
+        source-repo: "git@github.com:OhYee/wasm-package.git"
+        destination-repo: "git@gitee.com:OhYee/wasm-package.git"
+      
