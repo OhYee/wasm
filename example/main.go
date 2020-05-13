@@ -5,8 +5,8 @@ import (
 	"syscall/js"
 
 	"github.com/OhYee/rainbow/errors"
-	"github.com/OhYee/wasm-package/dom"
-	wasm "github.com/OhYee/wasm-package/package"
+	"github.com/OhYee/wasm/dom"
+	wasm "github.com/OhYee/wasm/package"
 )
 
 //go:generate bash -c "GOARCH=wasm GOOS=js go build -o main.wasm main.go"

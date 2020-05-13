@@ -1,4 +1,4 @@
-module github.com/OhYee/wasm-package
+module github.com/OhYee/wasm
 
 go 1.14
 
