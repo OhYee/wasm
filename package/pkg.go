@@ -59,7 +59,9 @@ func (pkg *Package) wrapperFunction(name string, f jsFunction) func(js.Value, []
 		if err != nil {
 			return &ReturnObject{
 				Success: false,
-				Return:  errors.NewErr(err),
+				Return:  errors.ShowStack(errors.NewErr(err)),
+			}
+		}
 			}
 		}
 		return &ReturnObject{
