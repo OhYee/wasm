@@ -62,8 +62,17 @@ func (pkg *Package) wrapperFunction(name string, f jsFunction) func(js.Value, []
 				Return:  errors.ShowStack(errors.NewErr(err)),
 			}
 		}
+
+		bs, isBytes := ret.([]byte)
+		if isBytes {
+			src := js.Global().Get("Uint8Array").New(len(bs))
+			js.CopyBytesToJS(src, bs)
+			return &ReturnObject{
+				Success: true,
+				Return:  src,
 			}
 		}
+
 		return &ReturnObject{
 			Success: true,
 			Return:  ret,
